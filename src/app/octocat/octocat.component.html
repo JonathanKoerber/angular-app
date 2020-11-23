@@ -7,14 +7,4 @@
   </li>
 </ul>
 
-<div *ngIf="selectedOctocat">
-
-  <h2>{{selectedOctocat.name | uppercase}} Details</h2>
-  <div><span>id: </span>{{selectedOctocat.id}}</div>
-  <div>
-    <label>name:
-      <input [(ngModel)]="selectedOctocat.name" placeholder="name"/>
-    </label>
-  </div>
-
-</div>
+<app-octocat-detail [octocat]="selectedOctocat"></app-octocat-detail>

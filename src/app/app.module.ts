@@ -5,11 +5,13 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { OctocatComponent } from './octocat/octocat.component';
+import { OctocatDetailComponent } from './octocat-detail/octocat-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    OctocatComponent
+    OctocatComponent,
+    OctocatDetailComponent
   ],
   imports: [
     BrowserModule,
