@@ -1,8 +1,20 @@
+<h2>Octocats</h2>
+<ul class="octocat">
+  <li *ngFor="let octocat of octocats"
+    [class.selected]="octocat === selectedOctocat"
+    (click)="onSelect(octocat)">
+    <span class="badge">{{octocat.id}}</span> {{octocat.name}}
+  </li>
+</ul>
 
-<h2>{{octocat.name | uppercase}} Details</h2>
-<div><span>id: </span>{{octocat.id}}</div>
-<div>
-  <label>name:
-    <input [(ngModel)]="octocat.name" placeholder="name"/>
-  </label>
+<div *ngIf="selectedOctocat">
+
+  <h2>{{selectedOctocat.name | uppercase}} Details</h2>
+  <div><span>id: </span>{{selectedOctocat.id}}</div>
+  <div>
+    <label>name:
+      <input [(ngModel)]="selectedOctocat.name" placeholder="name"/>
+    </label>
+  </div>
+
 </div>

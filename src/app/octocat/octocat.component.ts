@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Octocat} from '../octocat';
+import {Octocat} from '../octocat'
+import {OCTOCATS} from '../mock-octocat';
 
 @Component({
   selector: 'app-octocat',
@@ -8,14 +9,13 @@ import {Octocat} from '../octocat';
 })
 export class OctocatComponent implements OnInit {
 
-  octocat: Octocat = {
-    id: 1,
-    name: 'GitHub'
-  }
+  octocats = OCTOCATS;
   constructor() { }
 
   ngOnInit(): void {
 
   }
-
+  onSelect(octocat: Octocat): void {
+    this.selectedOctocat = octocat;
+  }
 }
