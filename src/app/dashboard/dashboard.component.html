@@ -1,0 +1,9 @@
+<h3>Top Octocats</h3>
+<div class="grid grid-pad">
+  <a *ngFor="let cat of octocats" class="col-1-4" routerLink="/detail/{cat.id}">
+    <div class="module octocat">
+      <h4>{{cat.name}}</h4>
+    </div>
+  </a>
+</div>
+<app-octocat-search></app-octocat-search>

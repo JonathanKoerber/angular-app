@@ -1,10 +1,19 @@
 <h2>Octocats</h2>
+<div>
+  <lable>Octocat name:
+    <input #octocatName />
+  </lable>
+  <button (click)="add(octocatName.value); octocatName.value-''">
+    add
+  </button>
+</div>
+
 <ul class="octocat">
-  <li *ngFor="let octocat of octocats"
-    [class.selected]="octocat === selectedOctocat"
-    (click)="onSelect(octocat)">
-    <span class="badge">{{octocat.id}}</span> {{octocat.name}}
+  <li *ngFor="let octocat of octocats">
+    <a routerLink="/detail/{{octocat.id}}">
+      <span class="badge">{{octocat.id}}</span> {{octocat.name}}
+    </a>
+    <button class="delete" title="delete octocat"
+      (click)="delete(octocat)">x</button>
   </li>
 </ul>
-
-<app-octocat-detail [octocat]="selectedOctocat"></app-octocat-detail>

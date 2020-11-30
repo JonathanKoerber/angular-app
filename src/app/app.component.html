@@ -1,3 +1,8 @@
-<h2>{{title}}</h2>
-<app-octocat></app-octocat>
+<h1>{{title}}</h1>
+<nav>
+  <a routerLink="/dashboard">Dashboard</a>
+  <a routerLink="/octocat">Octotcat</a>
+</nav>
+<router-outlet></router-outlet>
+
 <app-messages></app-messages>
