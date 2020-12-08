@@ -11,26 +11,30 @@ import { OctocatService } from '../octocat.service';
   styleUrls: ['./octocat-detail.component.css']
 })
 export class OctocatDetailComponent implements OnInit {
-  octocat: Octocat;
+octocat: Octocat | undefined;
   constructor(
     private route: ActivatedRoute,
     private octocatService: OctocatService,
     private location: Location
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getOctocat();
   }
   getOctocat(): void{
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.octocatService.getOctocat(id)
-      .subscribe(octocat => this.octocat = octocat);
+    // Todo check for null value
+    if ('id' != null) {
+      // @ts-ignore
+      const id = +this.route.snapshot.paramMap.get('id');
+      this.octocatService.getOctocat(id)
+        .subscribe(octocat => this.octocat = octocat);
+    }
   }
   goBack(): void{
-    this.location.back()
+    this.location.back();
   }
   save(): void{
-    this.octocatService.updateOctocat(this.octocat)
-      .subscribe(()=>this.goBack());
+    this.octocatService.updateOctocat(this.octocat!)
+      .subscribe(() => this.goBack());
   }
 }

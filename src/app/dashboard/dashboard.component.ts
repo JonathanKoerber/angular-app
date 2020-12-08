@@ -8,7 +8,7 @@ import { OctocatService } from '../octocat.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  octocats: Octocat[] = [];
+  octocats: Octocat[] | undefined;
 
   constructor(private octocatService: OctocatService) { }
 

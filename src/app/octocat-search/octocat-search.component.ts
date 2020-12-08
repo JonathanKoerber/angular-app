@@ -12,10 +12,11 @@ import { OctocatService } from '../octocat.service';
   styleUrls: ['./octocat-search.component.css']
 })
 export class OctocatSearchComponent implements OnInit {
-  octocats$: Observable<Octocat[]>;
+
+  octocats$: Observable<Octocat[]> | undefined;
   private searchTerms = new Subject<string>();
 
-  constructor(private octocatService: OctocatService) {  }
+  constructor(private octocatService: OctocatService) {}
 
   search(term: string): void {
     this.searchTerms.next(term);
@@ -24,10 +25,8 @@ export class OctocatSearchComponent implements OnInit {
     this.octocats$ = this.searchTerms.pipe(
          // wait 300ms after each keystroke before considering the term
          debounceTime(300),
-
          // ignore new term if same as previous term
          distinctUntilChanged(),
-
          // switch to new search observable each time the term changes
          switchMap((term: string) => this.octocatService.searchOctocat(term)),
        );

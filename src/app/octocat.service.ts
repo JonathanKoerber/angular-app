@@ -10,9 +10,9 @@ import { MessageService } from './message.service';
 
 export class OctocatService {
 
-private octocatUrl = 'api/octocats'; //url web api
+private octocatUrl = 'api/octocats'; // url web api
 
-httpOptions={
+httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
 
@@ -33,9 +33,9 @@ constructor(
     const url = '${this.octocatUrl}/?id=${id}';
     return this.http.get<Octocat[]>(url)
     .pipe(
-      map(octocats=> octocats[0]),//returns a {1|0} element array
-      tap(o=>{
-        const outcome=o ? `fetched` : `did not find`;
+      map(octocats => octocats[0]), // returns a {1|0} element array
+      tap(o => {
+        const outcome = o ? `fetched` : `did not find`;
         this.log(`${outcome} octocat id=${id}`);
       }),
       catchError(this.handleError<Octocat>(`getOctocat id=${id}`))
@@ -45,46 +45,49 @@ constructor(
   getOctocat(id: number): Observable<Octocat>{
     const url = `${this.octocatUrl}/${id}`;
     return this.http.get<Octocat>(url).pipe(
-      tap(_=>this.log(`fetched octocat id=${id}`))
+      tap(_ => this.log(`fetched octocat id=${id}`))
     );
   }
   // search
   searchOctocat(term: string): Observable<Octocat[]>{
-    if(!term.trim()){
+  
+    if (!term.trim()){
+      this.log('no term');
       return of([]);
     }
     return this.http.get<Octocat[]>(`{this.octocatUrl}/?name=${term}`).pipe(
       tap(x => x.length ?
-        this.log(`found octocats matching "${term}"`):
+        this.log(`found octocats matching "${term}"`) :
         this.log(`no octocats matching "${term}"`)),
       catchError(this.handleError<Octocat[]>('searchOctocat', []))
     );
   }
-//save methods
-  //post: add new octocat
+// save methods
+  // post: add new octocat
   addOctocat(octocat: Octocat): Observable<Octocat>{
     return this.http.post<Octocat>(this.octocatUrl, octocat, this.httpOptions).pipe(
-      tap((newOctocat: Octocat)=> this.log(`added octocat with id=${newOctocat.id}`)),
+      tap((newOctocat: Octocat) => this.log(`added octocat with id=${newOctocat.id}`)),
       catchError(this.handleError<Octocat>('addOctocat'))
     );
   }
-  //Delete
+  // Delete
   deleteOctocat(octocat: Octocat | number): Observable<Octocat>{
     const id = typeof octocat === 'number' ? octocat : octocat.id;
     const url = `${this.octocatUrl}/${id}`;
 
     return this.http.delete<Octocat>(url, this.httpOptions).pipe(
-      tap(_=> this.log(`deleted octocat id=${id}`)),
+      tap(_ => this.log(`deleted octocat id=${id}`)),
       catchError(this.handleError<Octocat>('deletedOctocat'))
     );
   }
-  //update
+  // update
   updateOctocat(octocat: Octocat): Observable<any>{
     return this.http.put(this.octocatUrl, octocat, this.httpOptions).pipe(
-      tap(_=> this.log(`updated octocat id=${octocat.id}`)),
+      tap(_ => this.log(`updated octocat id=${octocat.id}`)),
       catchError(this.handleError<any>('updatedOctocat'))
-    )
+    );
   }
+  // tslint:disable-next-line:typedef
   private handleError<T>(operation = 'operation', result?: T){
     return (error: any): Observable<T> => {
       console.error(error);
