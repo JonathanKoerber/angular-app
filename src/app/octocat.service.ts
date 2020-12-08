@@ -50,16 +50,15 @@ constructor(
   }
   // search
   searchOctocat(term: string): Observable<Octocat[]>{
-  
+
     if (!term.trim()){
-      this.log('no term');
       return of([]);
     }
-    return this.http.get<Octocat[]>(`{this.octocatUrl}/?name=${term}`).pipe(
+    return this.http.get<Octocat[]>(`${this.octocatUrl}/?name=${term}`).pipe(
       tap(x => x.length ?
         this.log(`found octocats matching "${term}"`) :
         this.log(`no octocats matching "${term}"`)),
-      catchError(this.handleError<Octocat[]>('searchOctocat', []))
+      catchError(this.handleError<Octocat[]>(`octocatService.search\(${term}\)`, []))
     );
   }
 // save methods
